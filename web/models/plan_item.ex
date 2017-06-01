@@ -21,8 +21,9 @@ defmodule NanoPlanner.PlanItem do
 
   def convert_datetime(items) do
     alias Timex.Timezone
+    time_zone = Application.get_env(:nano_planner, :default_time_zone)
     Enum.map items, fn(item) ->
-      Map.merge(item, %{starts_at: Timezone.convert(item.starts_at, "Asia/Tokyo"), ends_at: Timezone.convert(item.ends_at, "Asia/Tokyo")}) 
+      Map.merge(item, %{starts_at: Timezone.convert(item.starts_at, time_zone), ends_at: Timezone.convert(item.ends_at, time_zone)})
     end
   end
 end
